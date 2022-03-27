@@ -14,5 +14,5 @@ find_package(Threads REQUIRED)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${ARRAY_LIB_INCLUDE_DIRS} ${FIND_MAX_INCR_SEQUENCE_INCLUDE_DIRS})
-target_link_libraries(${PROJECT_NAME} ${ARRAY_LIB_LIBRARIES} ${FIND_MAX_INCR_SEQUENCE_LIBRARIES} GTest::GTest gtest_main Threads::Threads)
+target_include_directories(${PROJECT_NAME} PUBLIC ${FIND_MAX_INCR_SEQUENCE_INCLUDE_DIRS})
+target_link_libraries(${PROJECT_NAME} ${FIND_MAX_INCR_SEQUENCE_LIBRARIES} GTest::GTest gtest_main Threads::Threads)

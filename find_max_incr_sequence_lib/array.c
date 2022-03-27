@@ -2,6 +2,23 @@
 
 #define MIN_SIZE 120
 
+Array *create_array(size_t n) {
+    Array *new_array = calloc(1, sizeof(Array));
+    if (!new_array) {
+        return NULL;
+    }
+    if (n) {
+        new_array->data = calloc(n , sizeof(size_t));
+        new_array->capacity = n;
+
+        if (!new_array->data) {
+            free(new_array);
+            return NULL;
+        }
+    }
+    return new_array;
+}
+
 void free_array(Array *arr) {
     if (!arr) {
         return;
@@ -10,9 +27,7 @@ void free_array(Array *arr) {
         return;
     }
     free(arr->data);
-    arr->data = NULL;
-    arr->size = 0;
-    arr->capacity = 0;
+    free(arr);
 }
 
 int resize_array(Array *arr) {
@@ -21,7 +36,7 @@ int resize_array(Array *arr) {
     }
 
     size_t new_capacity = arr->capacity >= MIN_SIZE ? arr->capacity * 2 : MIN_SIZE;
-    int *temp = realloc(arr->data, new_capacity * sizeof(int));
+    size_t *temp = realloc(arr->data, new_capacity * sizeof(size_t));
     if (!temp) {
         return -1;
     }
@@ -31,7 +46,7 @@ int resize_array(Array *arr) {
     return 0;
 }
 
-int add_elem(Array *arr, const int x) {
+int add_elem(Array *arr, const size_t x) {
     if (!arr) {
         return -1;
     }
@@ -47,8 +62,11 @@ int add_elem(Array *arr, const int x) {
     return 0;
 }
 
-void print_array(const Array arr) {
-    for (size_t i = 0; i < arr.size; ++i) {
-        printf("%d ", arr.data[i]);
+void print_array(const Array *arr) {
+    if (!arr) {
+        return;
+    }
+    for (size_t i = 0; i < arr->size; ++i) {
+        printf("%zu ", arr->data[i]);
     }
 }

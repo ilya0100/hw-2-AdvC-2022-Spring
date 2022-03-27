@@ -4,7 +4,7 @@
 
 
 int main() {
-    Array arr = {0};
+    Array *arr = create_array(0);
 
     size_t n = 0;
     
@@ -13,22 +13,23 @@ int main() {
 
     printf("Enter elements\n");
 
-    srand(time(NULL));
+    // srand(time(NULL));
     for (size_t i = 0; i < n; ++i) {
         // int x = rand() % 1000;
-        int x = 0;
-        scanf("%d", &x);
-        add_elem(&arr, x);
+        size_t x = 0;
+        scanf("%zu", &x);
+        if (add_elem(arr, x)) {
+            printf("Add error");
+            return -1;
+        }
     }
 
     print_array(arr);
     printf("\n");
 
-    size_t index = 0;
-    size_t length = find_max_incr_sequence(arr.data, arr.size, &index);
-
-    printf("Index: %zu, Length: %zu\n", index, length);
-
-    free_array(&arr);
+    size_t max_length = find_max_incr_sequence(arr, 3);    
+    printf("%zu\n", max_length);
+    
+    free_array(arr);
     return 0;
 }

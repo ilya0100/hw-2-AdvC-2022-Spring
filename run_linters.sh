@@ -22,14 +22,14 @@ function check_log() {
 }
 
 print_header "RUN cppcheck"
-check_log "cppcheck array_lib/ find_max_incr_sequence_lib/ main.c --enable=all --inconclusive --error-exitcode=1 \
-        -I array_lib/ find_max_incr_sequence_lib/ --suppress=missingIncludeSystem" "\(information\)"
+check_log "cppcheck  find_max_incr_sequence_lib/ main.c --enable=all --inconclusive --error-exitcode=1 \
+        -I  find_max_incr_sequence_lib/ --suppress=missingIncludeSystem" "\(information\)"
 
 print_header "RUN clang-tidy"
-check_log "clang-tidy array_lib/*.c find_max_incr_sequence_lib/*.c array_lib/*.h find_max_incr_sequence_lib/*.h \
-        -warnings-as-errors=* -extra-arg=-std=c99 -- -Igroup_data_lib/" "Error (?:reading|while processing)"
+check_log "clang-tidy find_max_incr_sequence_lib/*.c find_max_incr_sequence_lib/*.h \
+        -warnings-as-errors=* -extra-arg=-std=c99 -- -Ifind_max_incr_sequence_lib/" "Error (?:reading|while processing)"
 
 print_header "RUN cpplint"
-check_log "cpplint --extensions=c array_lib/* find_max_incr_sequence_lib/*" "Can't open for reading"
+check_log "cpplint --extensions=c find_max_incr_sequence_lib/*" "Can't open for reading"
 
 print_header "SUCCESS"

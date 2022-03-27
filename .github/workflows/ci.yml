@@ -1,0 +1,45 @@
+on: push
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    container: ilya0100/clang_hw
+    steps:
+      - uses: actions/checkout@v2
+      - run: make check
+
+  build:
+    runs-on: ubuntu-latest
+    container: ilya0100/clang_hw
+    needs: [check]
+    steps:
+    - uses: actions/checkout@v2
+    - run: make build
+
+  test:
+    runs-on: ubuntu-latest
+    container: ilya0100/clang_hw
+    needs: [build]
+    steps:
+      - uses: actions/checkout@v2
+      - run: make test
+
+  memtest:
+    runs-on: ubuntu-latest
+    container: ilya0100/clang_hw
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v2
+      - run: make memtest
+
+  covtest:
+    runs-on: ubuntu-latest
+    container: ilya0100/clang_hw
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v2 
+      - run: |
+          make covtest
+          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          chmod +x codecov
+          ./codecov -t ${{ secrets.CODECOV_TOKEN }}

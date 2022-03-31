@@ -8,8 +8,9 @@ Array *create_array(size_t n) {
         return NULL;
     }
     if (n) {
-        new_array->data = calloc(n , sizeof(size_t));
+        new_array->data = calloc(n, sizeof(size_t));
         new_array->capacity = n;
+        new_array->size = n;
 
         if (!new_array->data) {
             free(new_array);
@@ -46,7 +47,7 @@ int resize_array(Array *arr) {
     return 0;
 }
 
-int add_elem(Array *arr, const size_t x) {
+int push_back(Array *arr, const size_t x) {
     if (!arr) {
         return -1;
     }
@@ -66,7 +67,18 @@ void print_array(const Array *arr) {
     if (!arr) {
         return;
     }
+    printf("Elements: ");
     for (size_t i = 0; i < arr->size; ++i) {
         printf("%zu ", arr->data[i]);
     }
+}
+
+void print_all_array_info(const Array *arr) {
+    if (!arr) {
+        return;
+    }
+    printf("Main adress: %p\nData adress: %p\nSize: %zu\nCapacity: %zu\n", 
+            arr, arr->data, arr->size, arr->capacity);
+    print_array(arr);
+    printf("\n");
 }

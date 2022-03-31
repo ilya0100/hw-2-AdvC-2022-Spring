@@ -6,28 +6,22 @@
 int main() {
     Array *arr = create_array(0);
 
-    size_t n = 0;
-    
-    printf("Enter array size\n");
-    scanf("%zu", &n);
-
     printf("Enter elements\n");
 
+    size_t x = 0;
     // srand(time(NULL));
-    for (size_t i = 0; i < n; ++i) {
+    while (scanf("%zu", &x) != -1) {
         // int x = rand() % 1000;
-        size_t x = 0;
-        scanf("%zu", &x);
-        if (add_elem(arr, x)) {
+        if (push_back(arr, x)) {
             printf("Add error");
             return -1;
         }
     }
 
-    print_array(arr);
-    printf("\n");
+    // print_array(arr);
+    // printf("\n");
 
-    size_t max_length = find_max_incr_sequence(arr, 3);    
+    size_t max_length = find_max_incr_sequence(arr, 2);    
     printf("%zu\n", max_length);
     
     free_array(arr);

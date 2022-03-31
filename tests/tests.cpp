@@ -6,7 +6,7 @@ TEST(GoodCase, ArrrayCreation) {
     size_t test_arr[] = {1, 2, 3, 4};
 
     for (size_t i = 0; i < 4; ++i) {
-        ASSERT_EQ(0, add_elem(arr, test_arr[i]));
+        ASSERT_EQ(0, push_back(arr, test_arr[i]));
     }
 
     for (size_t i = 0; i < arr->size; ++i) {

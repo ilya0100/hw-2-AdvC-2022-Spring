@@ -102,7 +102,7 @@ size_t find_max_incr_sequence_multiproc(Array *arr, size_t n) {
             free_mmap_array(lengths);
             free(pid);
 
-            exit(EXIT_SUCCESS);
+            return 0;
         }
     }
     indexes->data[indexes->size - 1] = arr->size;

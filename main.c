@@ -1,4 +1,3 @@
-#include <time.h>
 #include "max_seq_multiproc.h"
 #include "max_seq_singleproc.h"
 
@@ -9,9 +8,7 @@ int main() {
     printf("Enter elements\n");
 
     size_t x = 0;
-    // srand(time(NULL));
     while (scanf("%zu", &x) != -1) {
-        // int x = rand() % 1000;
         if (push_back(arr, x)) {
             printf("Add error");
             return -1;
@@ -23,7 +20,11 @@ int main() {
     size_t max_length = find_max_incr_sequence(arr);    
     printf("%zu\n", max_length);
     
-    max_length = find_max_incr_sequence_multiproc(arr, num_cpu);    
+    max_length = find_max_incr_sequence_multiproc(arr, num_cpu);
+    if (max_length == 0) {
+        free_array(arr);
+    }    
+
     printf("%zu\n", max_length);
 
     free_array(arr);

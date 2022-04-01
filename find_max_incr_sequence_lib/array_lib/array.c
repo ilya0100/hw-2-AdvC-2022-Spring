@@ -31,6 +31,35 @@ void free_array(Array *arr) {
     free(arr);
 }
 
+Array *create_mmap_array(size_t size) {
+    Array *new_array = create_array(0);
+    if (!new_array) {
+        return NULL;
+    }
+
+    new_array->data = mmap(NULL, sizeof(size_t) * size,
+                           PROT_WRITE | PROT_READ, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+    if (new_array->data == MAP_FAILED) {
+        free(new_array);
+        return NULL;
+    }
+    new_array->size = size;
+    new_array->capacity = size;
+
+    return new_array;
+}
+
+void free_mmap_array(Array *arr) {
+    if (!arr) {
+        return;
+    }
+
+    if (arr->data != MAP_FAILED) {
+        munmap(arr->data, arr->size);
+    }
+    free(arr);
+}
+
 int resize_array(Array *arr) {
     if (!arr) {
         return -1;
@@ -61,24 +90,4 @@ int push_back(Array *arr, const size_t x) {
     arr->data[arr->size] = x;
     ++arr->size;
     return 0;
-}
-
-void print_array(const Array *arr) {
-    if (!arr) {
-        return;
-    }
-    printf("Elements: ");
-    for (size_t i = 0; i < arr->size; ++i) {
-        printf("%zu ", arr->data[i]);
-    }
-}
-
-void print_all_array_info(const Array *arr) {
-    if (!arr) {
-        return;
-    }
-    printf("Main adress: %p\nData adress: %p\nSize: %zu\nCapacity: %zu\n", 
-            arr, arr->data, arr->size, arr->capacity);
-    print_array(arr);
-    printf("\n");
 }

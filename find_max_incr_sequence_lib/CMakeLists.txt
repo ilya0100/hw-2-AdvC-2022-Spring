@@ -1,12 +1,20 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.14)
 project(find_max_incr_sequence_lib)
+
+add_subdirectory(array_lib)
 
 set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-Wall -Wextra -Werror -fprofile-arcs -ftest-coverage -fPIC -O0")
 
 file(GLOB SOURCES *.c)
 file(GLOB INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR})
 
-add_library(${PROJECT_NAME} ${SOURCES})
+add_library(${PROJECT_NAME} SHARED ${SOURCES})
+
+target_include_directories(${PROJECT_NAME} PUBLIC ${ARRAY_INCLUDE_DIRS})
+target_link_libraries(${PROJECT_NAME} PRIVATE ${ARRAY_LIBRARIES})
 
 set(FIND_MAX_INCR_SEQUENCE_LIBRARIES ${PROJECT_NAME} PARENT_SCOPE)
 set(FIND_MAX_INCR_SEQUENCE_INCLUDE_DIRS ${INCLUDE_DIRS} PARENT_SCOPE)
+
+set(ARRAY_LIBRARIES ${ARRAY_LIBRARIES} PARENT_SCOPE)
+set(ARRAY_INCLUDE_DIRS ${ARRAY_INCLUDE_DIRS} PARENT_SCOPE)

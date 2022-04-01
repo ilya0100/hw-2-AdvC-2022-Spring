@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-    #include "max_seq.h"
+    #include "max_seq_multiproc.h"
     #include "array.h"
 }
 

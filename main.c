@@ -1,6 +1,6 @@
 #include <time.h>
 #include "array.h"
-#include "max_seq.h"
+#include "max_seq_multiproc.h"
 
 
 int main() {
@@ -18,10 +18,9 @@ int main() {
         }
     }
 
-    // print_array(arr);
-    // printf("\n");
+    size_t num_cpu = sysconf(_SC_NPROCESSORS_ONLN);
 
-    size_t max_length = find_max_incr_sequence(arr, 2);    
+    size_t max_length = find_max_incr_sequence(arr, num_cpu);    
     printf("%zu\n", max_length);
     
     free_array(arr);

@@ -58,7 +58,7 @@ static size_t find_local_incr_sequence(Array *arr, size_t begin, size_t end, siz
     return max_length;
 }
 
-size_t find_max_incr_sequence(Array *arr, size_t n) {
+size_t find_max_incr_sequence_multiproc(Array *arr, size_t n) {
     if (!arr) {
         return 0;
     }

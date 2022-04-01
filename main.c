@@ -1,6 +1,6 @@
 #include <time.h>
-#include "array.h"
 #include "max_seq_multiproc.h"
+#include "max_seq_singleproc.h"
 
 
 int main() {
@@ -20,9 +20,12 @@ int main() {
 
     size_t num_cpu = sysconf(_SC_NPROCESSORS_ONLN);
 
-    size_t max_length = find_max_incr_sequence(arr, num_cpu);    
+    size_t max_length = find_max_incr_sequence(arr);    
     printf("%zu\n", max_length);
     
+    max_length = find_max_incr_sequence_multiproc(arr, num_cpu);    
+    printf("%zu\n", max_length);
+
     free_array(arr);
     return 0;
 }

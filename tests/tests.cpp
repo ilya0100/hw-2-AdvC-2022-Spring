@@ -1,6 +1,6 @@
 #include "utils.h"
 
-#define STRESS_TEST_ARRAY_SIZE 1000000000
+#define STRESS_TEST_ARRAY_SIZE 1000000
 
 TEST(ArrayBaseTests, ArrrayCreation) {
     Array *arr = create_array(0);
